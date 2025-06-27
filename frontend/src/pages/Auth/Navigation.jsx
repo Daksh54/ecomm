@@ -9,23 +9,39 @@ import { useLoginMutation } from '../../redux/api/userApiSlice';
 import { logout } from '../../redux/features/auth/authSlice';
 
 
-
-
 const Navigation = ()=>{
-    const [dropdownOpen, setdropdown] = useState(false);
+    const {userInfo} = useSelector(state => state.auth);
+    const [dropdownOpen, setDropdown] = useState(false);
     const [showSidebar, setShowSidebar] = useState(false);
 
     const toggleDropdown = () => {
-        setdropdown(!dropdownOpen);
+        setDropdown(!dropdownOpen);
     };
 
     const toggleSidebar = () => {
-        setShowSidebar(!showsidebar);
+        setShowSidebar(!showSidebar);
     };
 
     const closeSidebar = () =>{
         setShowSidebar(false);
     };
+
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+
+    const [logoutApiCall] = useLoginMutation();
+
+    const logoutHandler = async () =>{
+        try {
+            await logoutApiCall().unwrap();
+            dispatch(logout());
+            navigate('/login');
+            closeSidebar();
+        } catch (error) {
+            console.error("Logout failed:", error);
+        }
+    }
+
     return <div style = {{zIndex : 999}} className={`${showSidebar ? "hidden": "flex"} xl:flex lg:flex md:hidden sm:hidden flex-col justify-between p-4 text-white bg-black w-[4%] hover:w-[15%] h-[100vh] fixed`} id = "navigation-container">
         <div className="flex flex-col justify-center space-y-4">
             <Link to='/' className='flex items-center transition-transform transform hover:translate-x-2'>
@@ -51,18 +67,21 @@ const Navigation = ()=>{
         </div>
 
         <div className="relative">
-            <button onClick={toggleDropdown}></button>
+            <button onClick={toggleDropdown}
+                    className='flex items-center text-gray-800 focus:outline-none'>
+                        {userInfo ?( <span className='text-white'>{userInfo.username}</span>) : (<></>)}
+                    </button>
         </div>
         <ul>
             <li>
-                <Link to='/favorite' className='flex items-center transition-transform transform hover:translate-x-2'>
+                <Link to='/login' className='flex items-center transition-transform transform hover:translate-x-2'>
                 <AiOutlineLogin className='mr-2 mt-[3rem' size={26} />
                 <span className='hidden nav-item-name mt-[3rem]'>Login</span>{" "}
                 
                 </Link>
             </li>
             <li>
-                <Link to='/favorite' className='flex items-center transition-transform transform hover:translate-x-2'>
+                <Link to='/register' className='flex items-center transition-transform transform hover:translate-x-2'>
                 <AiOutlineUserAdd className='mr-2 mt-[3rem' size={26} />
                 <span className='hidden nav-item-name mt-[3rem]'>Register</span>{" "}
                 
