@@ -8,6 +8,10 @@ import { Provider } from "react-redux";
 import store from "./redux/store.js";
 import Profile from "./pages/User/Profile.jsx";
 
+//admin Route
+import AdminRoute from "./pages/Admin/AdminRoute.jsx";
+import UserList from "./pages/Admin/UserList.jsx";
+
 // Private route
 import PrivateRoute from "./components/PrivateRoute.jsx";
 
@@ -24,6 +28,10 @@ const router = createBrowserRouter(
 
       <Route path="/login" element={<Login />} />
       <Route path="/register" element={<Register />} />
+
+      <Route path="/admin" element={<AdminRoute></AdminRoute>}>
+        <Route path="userList" element= {<UserList></UserList>}/>
+      </Route>
     </Route>
   )
 );
