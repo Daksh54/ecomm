@@ -5,7 +5,6 @@ import { toast } from 'react-toastify';
 import { setCredentials } from '../../redux/features/auth/authSlice';
 import { useRegisterMutation } from '../../redux/api/userApiSlice';
 import Loader from '../../components/Loader';
-
 const Register = () => {
   const [username, setUsername]         = useState('');
   const [email, setEmail]               = useState('');
@@ -124,7 +123,9 @@ const Register = () => {
             </Link>
           </p>
         </div>
+        
       </div>
+      <img src="https://res.cloudinary.com/dujktdhqm/image/upload/v1751092859/logo_evvoyl.png" alt="" />
     </section>
   );
 };

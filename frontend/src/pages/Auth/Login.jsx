@@ -88,6 +88,7 @@ const Login = () => {
                     Create an account
             </p>
         </div>
+        <img src="https://res.cloudinary.com/dujktdhqm/image/upload/v1751092859/logo_evvoyl.png" alt="" className='mt-12'/>
       </div>
     </section>
   );
